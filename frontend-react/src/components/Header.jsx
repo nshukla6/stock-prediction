@@ -1,26 +1,26 @@
 import {useContext} from 'react'
 import Button from './Button'
-import { Link } from 'react-router-dom'
-// import { AuthContext } from '../AuthProvider'
+import { Link, useNavigate } from 'react-router-dom'
+import { AuthContext } from '../AuthProvider'
 
 const Header = () => {
-//   const {isLoggedIn, setIsLoggedIn} = useContext(AuthContext)
-//   const navigate = useNavigate();
+  const {isLoggedIn, setIsLoggedIn} = useContext(AuthContext)
+  const navigate = useNavigate();
 
   const handleLogout = () =>{
     localStorage.removeItem('accessToken')
     localStorage.removeItem('refreshToken')
-    // setIsLoggedIn(false)
+    setIsLoggedIn(false)
     console.log('Logged out');
-    // navigate('/login')
+    navigate('/login')
   }
   return (
     <>
         <nav className='navbar container pt-3 pb-3 align-items-start'>
-            <a className='navbar-brand text-light' to="/">Stock Prediction Portal</a>
+            <Link className='navbar-brand text-light' to="/">Stock Prediction Portal</Link>
 
             <div>
-              {true ? (
+              {isLoggedIn ? (
                 <>
                 <Button text='Dashboard' class="btn-info" url="/dashboard" />
                 &nbsp;
@@ -28,9 +28,9 @@ const Header = () => {
                 </>
               ) : (
                 <>
-                <Button text='Login' class="btn-outline-info" url="/login" />
+                <Button text='Login' _class="btn-outline-info" url="/login" />
                 &nbsp;
-                <Button text='Register' class="btn-info" url="/register" />
+                <Button text='Register' _class="btn-info" url="/register" />
                 </>
               )}
                 
